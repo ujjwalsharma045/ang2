@@ -1,0 +1,39 @@
+<p>
+  Users
+</p>
+
+<div>
+  <p>
+    <input type="text" name="name" [(ngModel)]="search.name"/>
+  </p>
+  
+  <p>
+    <input type="text" name="email" [(ngModel)]="search.email"/>
+  </p>
+  
+  <p>
+    <input type="text" name="username" [(ngModel)]="search.username"/>
+  </p>
+  
+  <p>
+    <input type="text" name="created_at" [(ngModel)]="search.created_at"/>
+  </p>
+  
+  <p>
+    <input type="button" name="Search" value="Search" (click)="searchUser()"/>
+  </p>
+</div>
+
+<table style="width:100%">
+  <tr *ngFor="let user of userdetail">
+       <td>{{user._id}}</td>
+       <td>{{user.first_name}} {{user.last_name}}</td>
+	   <td>{{user.email}}</td>
+	   <td>{{user.created_at}}</td>
+	   <td>
+	       <a [routerLink]="['view' , user._id]">View</a>
+		   <a [routerLink]="['edit' , user._id]">Edit</a>
+		   <a href="javascript:void(0)" (click)="deleteUser(user._id)">Delete</a> 
+	   </td>	   
+   </tr>    
+</table>
