@@ -1,30 +1,69 @@
-<p>
-  Users
-</p>
+<style type="text/css">
+	.pagination{
+	  list-style:none;
+	  float:left
+	}
+	.pagination li {
+	  float:left;
+	  border:1px solid #CCCCCC;
+	  padding: 4px 4px 4px 4px;
+	  background-color:#FFFFFF;
+	}
+	div{
+	  float:left;
+	  width:200px;
+	}
+	.disabled{
+       display:none;	
+	}
+</style>
 
+<h2>Users</h2>
+
+<form>
 <div>
   <p>
+    <label>Name</label>
     <input type="text" name="name" [(ngModel)]="search.name"/>
   </p>
-  
+</div>
+
+<div>  
   <p>
+    <label>Email</label>
     <input type="text" name="email" [(ngModel)]="search.email"/>
   </p>
-  
+</div>  
+
+<div>  
   <p>
+    <label>Username</label>
     <input type="text" name="username" [(ngModel)]="search.username"/>
   </p>
-  
+</div>  
+
+<div>  
   <p>
+    <label>Created</label>
     <input type="text" name="created_at" [(ngModel)]="search.created_at"/>
   </p>
-  
+</div>
+
+<div> 
   <p>
     <input type="button" name="Search" value="Search" (click)="searchUser()"/>
   </p>
 </div>
+</form>
 
-<table style="width:100%">
+<table style="width:100%" style="border:1px solid #CCCCCC;border-collapse:collapse" border="1">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+	<th>Email</th>
+	<th>Created</th>
+	<th>Action</th>
+  </tr>
   <tr *ngFor="let user of userdetail">
        <td>{{user._id}}</td>
        <td>{{user.first_name}} {{user.last_name}}</td>
@@ -37,3 +76,21 @@
 	   </td>	   
    </tr>    
 </table>
+
+<ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+	<li [ngClass]="{disabled:pager.currentPage === 1}">
+		<a href="javascript:void(0)" (click)="paging(1)">First</a>
+	</li>
+	<li [ngClass]="{disabled:pager.currentPage === 1}">
+		<a href="javascript:void(0)" (click)="paging(pager.currentPage - 1)">Previous</a>
+	</li>
+	<li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+		<a href="javascript:void(0)" (click)="paging(page)">{{page}}</a>
+	</li>
+	<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+		<a href="javascript:void(0)" (click)="paging(pager.currentPage + 1)">Next</a>
+	</li>
+	<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+		<a href="javascript:void(0)" (click)="paging(pager.totalPages)">Last</a>
+	</li>
+</ul>

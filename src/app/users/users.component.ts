@@ -1,37 +1,68 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { UserService } from '../services/user.service';
+import { Observable } from 'rxjs/Observable';
+import * as _ from 'underscore';
+import { PagerService } from '../services/pager.service';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
-  providers:[UserService]
+  providers:[UserService, PagerService]
 })
 
 export class UsersComponent implements OnInit {
-	
+  	
   private userdetail;
+  
   private search = {
 	 name:"",
      email:"",
      username:"",
-     created_at:""	 
+     created_at:"",
+     page:1	 
   };
+ 
+  private allItems: any; 
+  private pageSize: any; 
+  private currentPage = 1; 
   
-  constructor(private userService:UserService, private route: ActivatedRoute, private router: Router) { }
+  pager: any = {};
+  
+  pagedItems: any[];
+  
+  constructor(private userService:UserService, private route: ActivatedRoute, private router: Router, private pagerService: PagerService) { }
   
   userList(data){
-	  if(data!=""){
+	  if(data!=""){		   
+		  this.userService.getUsers(data).subscribe(result => {
+			   this.userdetail = result.records;
+			   this.allItems = result.totalrecords;
+			   this.pageSize = result.totalpages;
+			   this.setPage(this.currentPage);
+		  });
+	  }
+	  else {		  
 		  this.userService.getUsers(data).subscribe(result => {
 			   this.userdetail  = result.records;
+			   this.allItems = result.totalrecords;
+			   this.pageSize = result.totalpages;
+			   this.setPage(this.currentPage);
 		  });
 	  }
-	  else {
-		  this.userService.getUsers("").subscribe(result => {
-			   this.userdetail  = result.records;
-		  });
-	  }
+  }
+  
+  setPage(page: number) {
+	  if(page < 1 || page > this.pager.totalPages){
+		 return;
+	  }	  
+	  	  	  
+	  // get pager object from service
+	  this.pager = this.pagerService.getPager(this.allItems, page, this.allItems/this.pageSize);
+       
+	  // get current page of items
+	  //this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   
   deleteUser(id){
@@ -42,8 +73,16 @@ export class UsersComponent implements OnInit {
 	  });
   }
   
-  searchUser(){	  
-	  return this.userList(this.search);
+  searchUser(){	        
+      this.currentPage =1;
+	  this.search.page = this.currentPage;
+	  this.userList(this.search);
+  }
+  
+  paging(pageno){	  
+      this.currentPage = pageno;
+	  this.search.page = pageno;
+	  this.userList(this.search);
   }
 
   ngOnInit() {

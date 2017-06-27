@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 import 'rxjs/add/operator/map';
@@ -13,6 +13,7 @@ import { UsersComponent } from './users/users.component';
 import { UserviewComponent } from './users/userview.component';
 import { UsereditComponent } from './users/useredit.component';
 import { UseraddComponent } from './users/useradd.component';
+import { ControlmessageComponent } from './controlmessage/controlmessage.component';
 
 const routes: Routes = [
   { path:'all', component: TodoComponent },
@@ -35,10 +36,12 @@ const routes: Routes = [
     UsersComponent,
     UserviewComponent,
     UsereditComponent,
-    UseraddComponent
+    UseraddComponent,
+    ControlmessageComponent,
   ],
   imports: [
     BrowserModule,
+	ReactiveFormsModule,
     FormsModule,
     HttpModule,
 	RouterModule.forRoot(routes)

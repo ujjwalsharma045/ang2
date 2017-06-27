@@ -91,7 +91,8 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 			
 			//console.log(sortsection);	
             page = (req.query.page && req.query.page>0)? req.query.page:1;			
-            perPage = (req.query.limit && req.query.limit>0)? req.query.limit:5; 			
+            perPage = (req.query.limit && req.query.limit>0)? req.query.limit:1; 	
+			perPage =2;
 			User.find(data).count().exec(function(err, count){
 				  var totalPages = math.ceil(count/perPage);
 				  //console.log(totalPages);

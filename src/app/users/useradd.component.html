@@ -1,28 +1,35 @@
-<p>
-  <label>Username</label>
-  <input type="text" name="username" [(ngModel)]="user.username"/> 
-</p>
+<form [formGroup]="userForm" (submit)="userAdd()">	
+	  <div>
+	    <label>Username</label>
+	    <input type="text" formControlName="username" id="username"/> 
+	    <control-messages [control]="userForm.controls.username"></control-messages>
+	  </div> 
+	
+	  <div>
+	    <label>Password</label>
+	    <input type="password" formControlName="password" id="password"/> 
+	    <control-messages [control]="userForm.controls.password"></control-messages>
+	  </div>
+	
+	  <div>
+	    <label>Email</label>
+	    <input type="text" formControlName="email" id="email"/> 
+	    <control-messages [control]="userForm.controls.email"></control-messages>
+	  </div>
+	  
+	  <div>
+	    <label>First Name</label>
+	    <input type="text" formControlName="firstname" id="firstname"/> 
+	    <control-messages [control]="userForm.controls.firstname"></control-messages>
+	  </div>
+	
+	  <div>
+	    <label>Last Name</label>
+	    <input type="text" formControlName="lastname" id="lastname"/> 
+	    <control-messages [control]="userForm.controls.lastname"></control-messages>
+	  </div>
 
-<p>
-  <label>Password</label>
-  <input type="password" name="password" [(ngModel)]="user.password"/> 
-</p>
-
-<p>
-  <label>Email</label>
-  <input type="text" name="email" [(ngModel)]="user.email"/> 
-</p>
-
-<p>
-  <label>First Name</label>
-  <input type="text" name="firstname" [(ngModel)]="user.first_name"/> 
-</p>
-
-<p>
-  <label>Last Name</label>
-  <input type="text" name="lastname" [(ngModel)]="user.last_name"/> 
-</p>
-
-<p>
-  <input type="button" name="Submit" value="Submit" (click)="userAdd()"/> 
-</p>
+	  <p>
+		<input type="submit" name="Submit" value="Submit"/> 
+	  </p>
+</form>	
