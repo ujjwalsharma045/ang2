@@ -84,6 +84,8 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 			       sortsection.username = req.query.sorttype; 
 			    else if(req.query.sortfield=="dateofbirth")					
 			       sortsection.dateofbirth = req.query.sorttype; 
+			   else if(req.query.sortfield=="created_at")					
+			       sortsection.created_at = req.query.sorttype; 
 			}
 			else { 
 				sortsection.email = 'asc'; 	
@@ -102,7 +104,7 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 					  pages[i] = i;
 				  }
 				  
-				  //console.log(pages);
+				  console.log(pages);
 			      User.find(data).limit(perPage).skip(perPage * (page-1)).sort(sortsection).exec(function(err, docs){
 				      //console.log(docs);			   
 				      res.setHeader('Content-Type', 'application/json');

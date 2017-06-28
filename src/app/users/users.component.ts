@@ -17,22 +17,26 @@ export class UsersComponent implements OnInit {
   private userdetail;
   
   private search = {
-	 name:"",
+	 first_name:"",
      email:"",
      username:"",
      created_at:"",
-     page:1	 
+     page:1,
+     sortfield:'_id',     	
+     sorttype:'asc'	 
   };
  
   private allItems: any; 
   private pageSize: any; 
-  private currentPage = 1; 
-  
+  private currentPage = 1;
+  private sortreverse = true;  
+    
   pager: any = {};
   
   pagedItems: any[];
   
-  constructor(private userService:UserService, private route: ActivatedRoute, private router: Router, private pagerService: PagerService) { }
+  constructor(private userService:UserService, private route: ActivatedRoute, private router: Router, private pagerService: PagerService) {       
+  }
   
   userList(data){
 	  if(data!=""){		   
@@ -74,7 +78,7 @@ export class UsersComponent implements OnInit {
   }
   
   searchUser(){	        
-      this.currentPage =1;
+      this.currentPage = 1;
 	  this.search.page = this.currentPage;
 	  this.userList(this.search);
   }
@@ -85,6 +89,27 @@ export class UsersComponent implements OnInit {
 	  this.userList(this.search);
   }
 
+  sortlist(field){
+	  if(this.search.sortfield==field){
+		  if(this.sortreverse){
+		    this.sortreverse = false;
+			this.search.sorttype = 'desc';
+		  }
+          else { 
+            this.sortreverse = true;
+            this.search.sorttype = 'asc';			
+		  }
+	  }
+	  else {
+	      this.search.sortfield = field;
+		  this.sortreverse = true;
+		  this.search.sorttype = 'asc';
+	  }
+	  
+	  this.search.page = this.currentPage;
+	  this.userList(this.search);
+  } 
+  
   ngOnInit() {
 	  this.userdetail = this.userList("");
   }

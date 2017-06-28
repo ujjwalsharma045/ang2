@@ -1,29 +1,37 @@
-<form [ngFormModel]="registrationForm" (ngSubmit)="registerUser(registrationForm.value)">	
+<h2>Edit User</h2>
+<form [formGroup]="userForm">	
 	 <div>		
 		  <label>Username</label>
-		  <input type="text" name="username" ngControl="username"/> 	
-          <em *ngIf="!username.valid && submitAttempt">Required</em>		  
+		  <input type="text" name="username" [formControl]="userForm.controls['username']"/> 	
+		  <div *ngIf="userForm.controls['username'].hasError('required') && submitted" class="alert alert-danger">   Enter user name.
+		  </div>          
 	 </div>
 	 
 	 <div>		
 		  <label>Email</label>
-		  <input type="text" name="email" ngControl="email"/> 		
-		  <em *ngIf="!email.valid && submitAttempt">Required</em>
+		  <input type="text" name="email" [formControl]="userForm.controls['email']"/> 		
+		  <div *ngIf="userForm.controls['email'].hasError('required') && submitted" class="alert alert-danger">
+		     Enter email
+		  </div>
 	 </div>
 	 
 	 <div>
 	      <label>First Name</label>
-	      <input type="text" name="first_name" ngControl="first_name"/>
-          <em *ngIf="!first_name.valid && submitAttempt">Required</em>		  
+	      <input type="text" name="first_name" [formControl]="userForm.controls['first_name']"/>
+          <div *ngIf="userForm.controls['first_name'].hasError('required') && submitted" class="alert alert-danger">
+		     Enter first name.
+		  </div>
 	 </div>
 	 
 	 <div>
 	      <label>Last Name</label>
-	      <input type="text" name="last_name" ngControl="last_name"/> 
-		  <em *ngIf="!last_name.valid && submitAttempt">Required</em>
+	      <input type="text" name="last_name" [formControl]="userForm.controls['last_name']"/> 
+		  <div *ngIf="userForm.controls['last_name'].hasError('required') && submitted" class="alert alert-danger">
+		     Enter last name.
+		  </div>
 	 </div>
 
 	 <div>	   
-	      <input type="button" name="Submit" value="Submit" (click)="updateUser(user, user._id)"/> 
+	      <input type="button" name="Submit" value="Submit" (click)="updateUser()"/> 
 	 </div>
 </form> 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators,FormGroup,FormControl } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { ValidationService } from '../services/validation.service';
+
 
 @Component({
   selector: 'app-useradd',
@@ -12,34 +12,40 @@ import { ValidationService } from '../services/validation.service';
 })
 
 export class UseraddComponent implements OnInit {
-  public user = {
-	  email:""
-  }; 
+	
+  public user = {}; 
   
-  userForm: any;
+  userForm: FormGroup;
+  private submitted = false;
   
   constructor(private userService:UserService,  private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder){ 
-		this.userForm = this.formBuilder.group({
+		/*this.userForm = this.formBuilder.group({
 		  'username': ['', Validators.required],
 		  'email': ['', [Validators.required]],
 		  'password': ['', [Validators.required, Validators.minLength(10)]],
 		  'firstname': ['', [Validators.required]],
 		  'lastname': ['', [Validators.required]]
-		});
+		});*/
+		
+		this.userForm = formBuilder.group({      
+			  'username' : [null, Validators.required],      
+			  'email': [null, Validators.required],
+			  'password': [null, Validators.required],
+			  'first_name' : [null, Validators.required],
+			  'last_name' : [null, Validators.required]
+        });
   }
   
   userAdd(){
-	    if(!this.userForm.invalid){
+	    this.submitted =true;	      
+	    if(this.userForm.valid){ 		             			
 			this.userService.addUser(this.userForm.value).subscribe(result => {
 				  //console.log(result);
 				  if(result.success=="1"){
 					 this.router.navigate(['./users']);	  
 				  }
 			});   
-	    }
-		else {
-			console.log(this.userForm._touched);
-		}
+	    }		
   }
   
   ngOnInit(){}  

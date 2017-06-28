@@ -1,35 +1,36 @@
-<form [formGroup]="userForm" (submit)="userAdd()">	
+<h2>Add User</h2>
+<form [formGroup]="userForm">	
 	  <div>
 	    <label>Username</label>
-	    <input type="text" formControlName="username" id="username"/> 
-	    <control-messages [control]="userForm.controls.username"></control-messages>
+	    <input type="text" [formControl]="userForm.controls['username']" name="username"/> 
+	    <div *ngIf="userForm.controls['username'].hasError('required') && submitted" class="alert alert-danger">Enter user name.</div>          
 	  </div> 
 	
 	  <div>
 	    <label>Password</label>
-	    <input type="password" formControlName="password" id="password"/> 
-	    <control-messages [control]="userForm.controls.password"></control-messages>
+	    <input type="password" [formControl]="userForm.controls['password']" name="password"/> 
+	    <div *ngIf="userForm.controls['password'].hasError('required') && submitted" class="alert alert-danger">Enter password.</div>          
 	  </div>
 	
 	  <div>
 	    <label>Email</label>
-	    <input type="text" formControlName="email" id="email"/> 
-	    <control-messages [control]="userForm.controls.email"></control-messages>
+	    <input type="text" [formControl]="userForm.controls['email']" name="email"/> 
+	    <div *ngIf="userForm.controls['email'].hasError('required') && submitted" class="alert alert-danger">Enter email.</div>          
 	  </div>
 	  
 	  <div>
 	    <label>First Name</label>
-	    <input type="text" formControlName="firstname" id="firstname"/> 
-	    <control-messages [control]="userForm.controls.firstname"></control-messages>
+	    <input type="text" [formControl]="userForm.controls['first_name']" name="firstname"/> 
+	    <div *ngIf="userForm.controls['first_name'].hasError('required') && submitted" class="alert alert-danger">Enter first name.</div>          
 	  </div>
 	
 	  <div>
 	    <label>Last Name</label>
-	    <input type="text" formControlName="lastname" id="lastname"/> 
-	    <control-messages [control]="userForm.controls.lastname"></control-messages>
+	    <input type="text" [formControl]="userForm.controls['last_name']" name="lastname"/> 
+	    <div *ngIf="userForm.controls['last_name'].hasError('required') && submitted" class="alert alert-danger">Enter last name.</div>          
 	  </div>
 
 	  <p>
-		<input type="submit" name="Submit" value="Submit"/> 
+		<input type="button" name="Submit" value="Submit" (click)="userAdd()"/> 
 	  </p>
 </form>	
