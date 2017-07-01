@@ -1,0 +1,22 @@
+<h2>Login</h2>
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+   <div>
+      <label>User Name</label>
+	  <input type="text" name="username" [formControl]="loginForm.controls['username']"/>
+	  <div *ngIf="loginForm.controls['username'].hasError('required') && submitted">
+	     Enter User name
+	  </div>	  
+   </div>
+   
+   <div>
+      <label>Password</label>
+	  <input type="password" name="password" [formControl]="loginForm.controls['password']"/>
+	  <div *ngIf="loginForm.controls['password'].hasError('required') && submitted">
+	     Enter Password
+	  </div>
+   </div>
+   
+   <div>      
+	  <input type="submit" name="sign-in"/>
+   </div>
+</form>

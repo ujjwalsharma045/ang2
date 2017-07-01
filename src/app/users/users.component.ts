@@ -35,7 +35,10 @@ export class UsersComponent implements OnInit {
   
   pagedItems: any[];
   
-  constructor(private userService:UserService, private route: ActivatedRoute, private router: Router, private pagerService: PagerService) {       
+  constructor(private userService:UserService, private route: ActivatedRoute, private router: Router, private pagerService: PagerService) {   
+       if(!userService.is_loggedin()){			
+	     router.navigate(['./login']);
+	   }	 
   }
   
   userList(data){

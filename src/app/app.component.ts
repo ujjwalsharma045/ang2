@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
 	public host_id: "HOST_COMPONENT";
 	public title:string = 'Angular 2, Nodejs & MongoDB CRUD';

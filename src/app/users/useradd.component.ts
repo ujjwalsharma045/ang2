@@ -3,7 +3,6 @@ import { ActivatedRoute, Router} from '@angular/router';
 import { FormBuilder, Validators,FormGroup,FormControl } from '@angular/forms';
 import { UserService } from '../services/user.service';
 
-
 @Component({
   selector: 'app-useradd',
   templateUrl: './useradd.component.html',
@@ -34,6 +33,11 @@ export class UseraddComponent implements OnInit {
 			  'first_name' : [null, Validators.required],
 			  'last_name' : [null, Validators.required]
         });
+		
+		
+		if(!userService.is_loggedin()){			
+			router.navigate(['./login']);
+		}		
   }
   
   userAdd(){

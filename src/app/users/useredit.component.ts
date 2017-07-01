@@ -26,6 +26,10 @@ export class UsereditComponent implements OnInit {
       'first_name' : [null, Validators.required],
       'last_name' : [null, Validators.required]
     });            
+	
+	if(!userService.is_loggedin()){			
+	   router.navigate(['./login']);
+	}
   }
 
   ngOnInit() {

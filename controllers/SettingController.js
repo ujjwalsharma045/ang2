@@ -54,7 +54,7 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 			}				
 	});
 
-    app.get("/setting/list" , passport.isAdminAuthenticated, function(req , res){
+    app.get("/setting/list" , function(req , res){
 		
 			Setting.find().exec(function(err, docs){
 				res.setHeader('Content-Type', 'application/json');

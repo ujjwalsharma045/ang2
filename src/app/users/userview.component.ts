@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -15,7 +15,11 @@ export class UserviewComponent implements OnInit {
   
   private userid;
   
-  constructor(private userService:UserService, private route: ActivatedRoute) { }
+  constructor(private userService:UserService, private route: ActivatedRoute, private router: Router) { 
+      if(!userService.is_loggedin()){			
+	    router.navigate(['./login']);
+	  }
+  }
    
   ngOnInit() {
 	  this.route.params.subscribe(params => {		    

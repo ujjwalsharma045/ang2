@@ -10,6 +10,10 @@ import { UserviewComponent } from './users/userview.component';
 import { UsereditComponent } from './users/useredit.component';
 import { UseraddComponent } from './users/useradd.component';
 import { ControlmessageComponent } from './controlmessage/controlmessage.component';
+import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { SettingComponent } from './setting/setting.component';
 
 const routes: Routes = [
   { path:'', component: UsersComponent },  
@@ -17,6 +21,8 @@ const routes: Routes = [
   { path:'users/view/:id', component: UserviewComponent },
   { path:'users/edit/:id', component: UsereditComponent },
   { path:'users/add', component: UseraddComponent },
+  { path:'login', component: LoginComponent },
+  { path:'setting', component: SettingComponent }
 ];
 
 @NgModule({
@@ -27,6 +33,10 @@ const routes: Routes = [
     UsereditComponent,
     UseraddComponent,
     ControlmessageComponent,
+    LoginComponent,
+    HeaderComponent,
+    FooterComponent,
+    SettingComponent,
   ],
   imports: [
     BrowserModule,

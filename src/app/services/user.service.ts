@@ -9,7 +9,7 @@ export class UserService {
   constructor(private http: Http) { }
      
   private userUrl = 'http://localhost:8081/';
-
+  private is_authenticated;
   getUsers(data){
 	  if(data!=""){
 		  
@@ -45,4 +45,22 @@ export class UserService {
   removeUser(id){
 	  return this.http.delete(this.userUrl+"delete/"+id).map(res => res.json()); 	  	  
   }  
+  
+  authenticate(user){
+	  console.log(user);
+	  let headers = new Headers({'Content-Type':'application/json'});
+      let options = new RequestOptions({headers:headers});
+	  return this.http.post(this.userUrl+"login", user, options).map(res => res.json()); 	  	  
+  }
+  
+  is_loggedin(){
+	  this.is_authenticated = localStorage.getItem('is_logged_in');
+	  return (this.is_authenticated == 1)? true:false;		  
+  }
+  
+  logout(){
+	  let headers = new Headers({'Content-Type':'application/json'});
+      let options = new RequestOptions({headers:headers});
+	  return this.http.post(this.userUrl+"logout", {}, options).map(res => res.json())
+  }
 }
