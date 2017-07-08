@@ -27,4 +27,12 @@ export class PageService {
     view(pageid){
 		return this.http.get(this.pageUrl+"page/view/"+pageid).map(res => res.json());
 	}
+	
+	getPages(data){
+		return this.http.get(this.pageUrl+"page/index").map(res => res.json());
+	}
+	
+	remove(pageid){
+		return this.http.delete(this.pageUrl+"page/delete/"+pageid).map(res => res.json());
+	}
 }

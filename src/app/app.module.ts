@@ -29,9 +29,11 @@ const routes: Routes = [
   { path:'users/add', component: UseraddComponent },
   { path:'login', component: LoginComponent },
   { path:'setting', component: SettingComponent },
-  { path:'pages/add', component: PageaddComponent },
-  { path:'pages/edit/:id', component: PageeditComponent },
-  { path:'pages/view/:id', component: PageviewComponent },
+  { path:'page/add', component: PageaddComponent },
+  { path:'page/edit/:id', component: PageeditComponent },
+  { path:'page/view/:id', component: PageviewComponent },
+  { path:'pages', component: PagesComponent },
+  { path:'pages/index', component: PagesComponent }
 ];
 
 @NgModule({

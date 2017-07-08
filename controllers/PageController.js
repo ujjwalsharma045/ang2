@@ -5,7 +5,7 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
     var math = require('mathjs');  		
 	var async = require('async');
 	
-	app.get("/page/index", passport.isAdminAuthenticated, function(req, res){
+	app.get("/page/index", function(req, res){
 		    console.log("start call"); 
 			var data = {
 				
@@ -68,7 +68,7 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 	    
 	});
 
-	app.delete("/page/delete/:id", passport.isAdminAuthenticated, function(req, res){
+	app.delete("/page/delete/:id", function(req, res){
 		var pageid = req.params.id; 
 		Page.findOneAndRemove({_id: pageid}, function(err) {
 			if (err) throw err;     

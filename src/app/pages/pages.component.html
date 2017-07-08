@@ -1,3 +1,37 @@
-<p>
-  pages works!
-</p>
+<h2>Users</h2>
+<table style="width:100%" style="border:1px solid #CCCCCC;border-collapse:collapse" border="1">
+    <tr>
+		<th>
+			<a href="javascript:void(0)">
+			 ID		
+			</a>  		
+		</th>
+		<th>
+		  <a href="javascript:void(0)">
+			 Title
+		  </a>		  
+		</th>
+		<th>
+		   <a href="javascript:void(0)">
+			 Status
+		   </a>	 	   
+		</th>
+		<th>
+		  <a href="javascript:void(0)">
+			 Created
+		  </a> 	  
+		</th>
+		<th>Action</th>
+    </tr>
+    <tr *ngFor="let page of pageslist">
+        <td>{{page._id}}</td>
+		<td>{{page.title}}</td>
+		<td>{{page.title}}</td>
+		<td>{{page.created}}</td>
+		<td>
+		    <a [routerLink]="['../page/view' , page._id]">View</a>
+			<a [routerLink]="['../page/edit' , page._id]">Edit</a>
+			<a href="javascript:void(0)" (click)="deletePage(page._id)">Delete</a>
+		</td>
+    </tr>    
+</table>
