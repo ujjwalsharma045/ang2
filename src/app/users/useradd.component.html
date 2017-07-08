@@ -29,6 +29,14 @@
 	    <input type="text" [formControl]="userForm.controls['last_name']" name="lastname"/> 
 	    <div *ngIf="userForm.controls['last_name'].hasError('required') && submitted" class="alert alert-danger">Enter last name.</div>          
 	  </div>
+	  
+	  <div>
+	    <label>Dob</label>
+	    <input type="text" [formControl]="userForm.controls['dateofbirth']" name="dateofbirth" ng2-datetime-picker  date-only="true"/> 
+	    <div *ngIf="userForm.controls['dateofbirth'].hasError('required') && submitted" class="alert alert-danger">
+		    Enter date of birth.
+		</div>          
+	  </div>
 
 	  <p>
 		<input type="button" name="Submit" value="Submit" (click)="userAdd()"/> 

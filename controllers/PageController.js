@@ -78,7 +78,7 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 		});		
 	});
 
-	app.get("/page/view/:id", passport.isAdminAuthenticated, function(req, res){
+	app.get("/page/view/:id",  function(req, res){
 		var pageid = req.params.id;
 		Page.find({_id:pageid}, function(err, records) {
 			  if (err) throw err;
@@ -88,7 +88,7 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 		}); 		
 	});
 
-    app.post("/page/edit/:id", passport.isAdminAuthenticated,  function(req, res){			    	
+    app.post("/page/edit/:id", function(req, res){			    	
 			var pageid = req.params.id; 
 			var error = [];	
 			var data = {};
@@ -120,7 +120,7 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 			}					    		
 	});
 	
-    app.post("/page/add", passport.isAdminAuthenticated,  function(req , res){			
+    app.post("/page/add",   function(req , res){			
 			var error = [];
 			var data = {};
 			

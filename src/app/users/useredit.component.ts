@@ -45,24 +45,22 @@ export class UsereditComponent implements OnInit {
   }
   
   updateUser(user , id){
-      this.submitted =true;	
+        this.submitted =true;	
       
-	  if(this.userForm.valid){
-		  this.user = {
-			 username:this.userForm.value['username'],
-             email:this.userForm.value['email'],
-             first_name:this.userForm.value['first_name'],
-             last_name:this.userForm.value['last_name']			
-		  };
+	    if(this.userForm.valid){
+		    this.user = {
+			  username:this.userForm.value['username'],
+              email:this.userForm.value['email'],
+              first_name:this.userForm.value['first_name'],
+              last_name:this.userForm.value['last_name']			
+		    };
 		  
-		  this.userService.updateUser(this.user , this.userid).subscribe(result => {
-			  console.log(result);
-			  if(result.success=="1"){
-				 this.router.navigate(['./users']);	  
-			  }
-		  });	  	  
-	  }
-	  
-	  
+		    this.userService.updateUser(this.user , this.userid).subscribe(result => {
+			    console.log(result);
+			    if(result.success=="1"){
+				   this.router.navigate(['./users']);	  
+			    }
+		    });	  	  
+	    }	  	  
   }    
 }

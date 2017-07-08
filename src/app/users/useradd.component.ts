@@ -12,12 +12,12 @@ import { UserService } from '../services/user.service';
 
 export class UseraddComponent implements OnInit {
 	
-  public user = {}; 
+    public user = {}; 
   
-  userForm: FormGroup;
-  private submitted = false;
+    userForm: FormGroup;
+    private submitted = false;
   
-  constructor(private userService:UserService,  private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder){ 
+    constructor(private userService:UserService,  private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder){ 
 		/*this.userForm = this.formBuilder.group({
 		  'username': ['', Validators.required],
 		  'email': ['', [Validators.required]],
@@ -27,30 +27,31 @@ export class UseraddComponent implements OnInit {
 		});*/
 		
 		this.userForm = formBuilder.group({      
-			  'username' : [null, Validators.required],      
-			  'email': [null, Validators.required],
-			  'password': [null, Validators.required],
-			  'first_name' : [null, Validators.required],
-			  'last_name' : [null, Validators.required]
+			'username' : [null, Validators.required],      
+			'email': [null, Validators.required],
+			'password': [null, Validators.required],
+			'first_name' : [null, Validators.required],
+			'last_name' : [null, Validators.required],
+			'dateofbirth' : [null, Validators.required]
         });
 		
 		
 		if(!userService.is_loggedin()){			
 			router.navigate(['./login']);
 		}		
-  }
+    }
   
-  userAdd(){
+    userAdd(){
 	    this.submitted =true;	      
 	    if(this.userForm.valid){ 		             			
 			this.userService.addUser(this.userForm.value).subscribe(result => {
-				  //console.log(result);
-				  if(result.success=="1"){
-					 this.router.navigate(['./users']);	  
-				  }
+				//console.log(result);
+				if(result.success=="1"){
+					this.router.navigate(['./users']);	  
+				}
 			});   
 	    }		
-  }
+    }
   
-  ngOnInit(){}  
+    ngOnInit(){}  
 }

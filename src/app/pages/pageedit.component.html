@@ -1,0 +1,33 @@
+<h2>Edit Page</h2>
+<form [formGroup]="pageForm">
+    <div>
+	    <label>Title</label>
+		<input type="text" [formControl]="pageForm.controls['title']" name="title"/>
+		<span *ngIf="pageForm.controls['title'].hasError('required') && submitted" class="alert alert-danger">
+		  Enter Title
+		</span>
+	</div>
+	
+	<div>
+	    <label>Content</label>		
+		<ckeditor  [formControl]="pageForm.controls['content']" [config]="{uiColor: '#99000'}"></ckeditor>
+		<span *ngIf="pageForm.controls['content'].hasError('required') && submitted" class="alert alert-danger">
+		  Enter Content
+		</span>
+	</div>
+	
+	<div>
+	    <label>Status</label>
+		<select name="status" [formControl]="pageForm.controls['status']">
+		   <option value="A">Active</option>
+		   <option value="I">Inctive</option>
+		</select>
+		<span *ngIf="pageForm.controls['status'].hasError('required') && submitted" class="alert alert-danger">
+		  Select Status
+		</span>
+	</div>
+	
+	<p>
+		<input type="button" name="Submit" value="Submit" (click)="editPage()"/> 
+	</p>
+</form>

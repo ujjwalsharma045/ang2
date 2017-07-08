@@ -14,6 +14,12 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SettingComponent } from './setting/setting.component';
+import { PagesComponent } from './pages/pages.component';
+import { PageaddComponent } from './pages/pageadd.component';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { PageeditComponent } from './pages/pageedit.component';
+import { PageviewComponent } from './pages/pageview.component';
+import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 
 const routes: Routes = [
   { path:'', component: UsersComponent },  
@@ -22,7 +28,10 @@ const routes: Routes = [
   { path:'users/edit/:id', component: UsereditComponent },
   { path:'users/add', component: UseraddComponent },
   { path:'login', component: LoginComponent },
-  { path:'setting', component: SettingComponent }
+  { path:'setting', component: SettingComponent },
+  { path:'pages/add', component: PageaddComponent },
+  { path:'pages/edit/:id', component: PageeditComponent },
+  { path:'pages/view/:id', component: PageviewComponent },
 ];
 
 @NgModule({
@@ -37,14 +46,20 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     SettingComponent,
+    PagesComponent,
+    PageaddComponent,
+    PageeditComponent,
+    PageviewComponent,
   ],
   imports: [
     BrowserModule,
 	ReactiveFormsModule,
     FormsModule,
     HttpModule,
-	RouterModule.forRoot(routes)
-  ],
+	RouterModule.forRoot(routes),
+	CKEditorModule,
+	Ng2DatetimePickerModule
+  ], 
   providers: [],
   bootstrap: [AppComponent]
 })
