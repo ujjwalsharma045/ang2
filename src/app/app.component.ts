@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-
+import { UserService } from './services/user.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers:[UserService]
 })
 
 export class AppComponent {
@@ -14,5 +15,13 @@ export class AppComponent {
     private reset = 'CRUD_RESET_FORM';
     private userList = 'CRUD_USER_LIST';
 	
-	constructor() {};
+	private isLogin;
+	constructor(private userService:UserService) { 
+		if(!this.userService.is_loggedin()){	
+			this.isLogin = false;
+		}
+		else {
+				this.isLogin = true;
+		}
+	};	
 }

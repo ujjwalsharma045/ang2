@@ -1,38 +1,47 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router} from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { FormBuilder, Validators,FormGroup,FormControl } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import {Observable} from 'rxjs/Rx';
-import {URLSearchParams} from '@angular/http'
+import {URLSearchParams} from '@angular/http';
+import { SettingService} from '../services/setting.service';
 
 @Component({
   selector: 'app-setting',
   templateUrl: './setting.component.html',
   styleUrls: ['./setting.component.css'],
-  //providers:['SettingService']
+  providers:[SettingService]
 })
+
 export class SettingComponent implements OnInit {
 	
-  settingForm: FormGroup;
-  private settingUrl = 'http://localhost:8081/';
-  private settings = [];
+    private settingUrl = 'http://localhost:8081/';
+    private settings = [];
   
-  constructor(private http: Http, private formBuilder: FormBuilder) { 
-     this.settingForm = formBuilder.group({      
-	 });
-  }
+    constructor(private http: Http, private route: ActivatedRoute, private router: Router, public settingService:SettingService) { 
+        
+    }
     
-  ngOnInit() {
-		  
-		  return this.http.get(this.settingUrl+"setting/list").map(res => res.json()).subscribe(result => {
-					  console.log(result);
-					  if(result.success=="1"){
-						 this.settings = result.settings;
-					  }
-		  });   
-   }   
+    ngOnInit() {
+		return this.http.get(this.settingUrl+"setting/list").map(res => res.json()).subscribe(result => {
+		    console.log(result);
+		    if(result.success=="1"){
+			   this.settings = result.settings;
+		    }
+		});   
+    }   
   
-   save(data){
-	 //settingService.save(data); 
-   }
-
+    update(){
+		//console.log(form.value);
+		console.log(this.settings);
+		//alert(form.value);
+	    //settingService.save(data);
+		
+        this.settingService.save(this.settings).subscribe(result => {
+			console.log(result);
+			if(result.success=="1"){
+				 this.router.navigate(['./users']);	  
+			}
+		});   		
+    }
 }

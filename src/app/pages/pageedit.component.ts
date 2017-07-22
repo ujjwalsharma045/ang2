@@ -14,6 +14,7 @@ export class PageeditComponent implements OnInit {
 	pageForm:FormGroup;
 	private pageid;
     private submitted = false;	
+	private sectionTitle = 'Edit Page';
     constructor(private pageService:PageService, private route: ActivatedRoute, private router: Router, private formBuiling: FormBuilder) { 
 	    this.pageForm = formBuiling.group({
 			'title':[null , Validators.required],
@@ -26,7 +27,7 @@ export class PageeditComponent implements OnInit {
 		this.route.params.subscribe(params => {
            this.pageid = params['id'];
         });
-		
+		this.sectionTitle = this.sectionTitle+' '+this.pageid;
 		this.pageService.view(this.pageid).subscribe(result => {
 			    console.log(result);
 			    if(result.success=="1"){

@@ -17,6 +17,7 @@ export class UsereditComponent implements OnInit {
 
   userForm: FormGroup;
   private submitted = false;
+  private sectionTitle = 'Edit User';
   constructor(private userService:UserService, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder){ 
     this.userForm = formBuilder.group({
       // To add a validator, we must first convert the string value into an array. The first item in the array is the default value if any, then the next item in the array is the validator. Here we are adding a required validator meaning that the firstName attribute must have a value in it.
@@ -36,7 +37,7 @@ export class UsereditComponent implements OnInit {
 	  this.route.params.subscribe(params => {
           this.userid = params['id'];
       });
-	  
+	  this.sectionTitle = this.sectionTitle+' '+this.userid;
 	  this.userService.getUser(this.userid).subscribe(result => {
 		  //console.log(result.records[0]);
 		  console.log(this.userForm);

@@ -20,6 +20,10 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { PageeditComponent } from './pages/pageedit.component';
 import { PageviewComponent } from './pages/pageview.component';
 import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
+import { FrontuserComponent } from './frontuser/frontuser.component';
+import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+import { UnheaderComponent } from './unheader/unheader.component';
+import { UnfooterComponent } from './unfooter/unfooter.component';
 
 const routes: Routes = [
   { path:'', component: UsersComponent },  
@@ -33,7 +37,8 @@ const routes: Routes = [
   { path:'page/edit/:id', component: PageeditComponent },
   { path:'page/view/:id', component: PageviewComponent },
   { path:'pages', component: PagesComponent },
-  { path:'pages/index', component: PagesComponent }
+  { path:'pages/index', component: PagesComponent },
+  { path:'frontuser/index', component: FrontuserComponent }
 ];
 
 @NgModule({
@@ -52,6 +57,11 @@ const routes: Routes = [
     PageaddComponent,
     PageeditComponent,
     PageviewComponent,
+    FrontuserComponent,
+	FileSelectDirective,
+	FileDropDirective,
+	UnheaderComponent,
+	UnfooterComponent 
   ],
   imports: [
     BrowserModule,

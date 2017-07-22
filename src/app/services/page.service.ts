@@ -5,8 +5,8 @@ import {URLSearchParams} from '@angular/http'
 @Injectable()
 export class PageService {
 
-  constructor(public http: Http) { }
-  private pageUrl = 'http://localhost:8081/';
+    constructor(public http: Http) { };
+    private pageUrl = 'http://localhost:8081/';
   
     list(){
 	  

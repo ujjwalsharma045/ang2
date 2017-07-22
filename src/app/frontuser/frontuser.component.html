@@ -1,0 +1,40 @@
+<h2>{{sectionTitle}}</h2>
+<form [formGroup]="frontuserForm" enctype="multipart/form-data" methood="post">	
+	  
+	  <div>
+	    <label>Email</label>
+	    <input type="text" [formControl]="frontuserForm.controls['email']" name="email"/> 
+	    <div *ngIf="frontuserForm.controls['email'].hasError('required') && submitted" class="alert alert-danger">Enter email.</div>          
+	  </div>
+	  
+	  <div>
+	    <label>First Name</label>
+	    <input type="text" [formControl]="frontuserForm.controls['first_name']" name="first_name"/> 
+	    <div *ngIf="frontuserForm.controls['first_name'].hasError('required') && submitted" class="alert alert-danger">Enter first name.</div>          
+	  </div>
+	
+	  <div>
+	    <label>Last Name</label>
+	    <input type="text" [formControl]="frontuserForm.controls['last_name']" name="last_name"/> 
+	    <div *ngIf="frontuserForm.controls['last_name'].hasError('required') && submitted" class="alert alert-danger">Enter last name.</div>          
+	  </div>
+	  
+	  <div>
+	    <label>File</label>
+	    <input type="file" [formControl]="frontuserForm.controls['profile_pic']" name="profile_pic" 
+       (change)="fileChange($event)" id="profile_pic"/> 
+	    <!-- <div *ngIf="frontuserForm.controls['profile_pic'].hasError('required') && submitted" class="alert alert-danger">Select Pic.</div>  -->         
+	  </div>
+	  
+	  <div>
+	    <label>Dob</label>
+	    <input type="text" [formControl]="frontuserForm.controls['dateofbirth']" name="dateofbirth" ng2-datetime-picker  date-only="true"/> 
+	    <div *ngIf="frontuserForm.controls['dateofbirth'].hasError('required') && submitted" class="alert alert-danger">
+		    Enter date of birth.
+		</div>          
+	  </div>
+
+	  <p>
+		<input type="button" name="Submit" value="Submit" (click)="userAdd()"/> 
+	  </p>
+</form>	

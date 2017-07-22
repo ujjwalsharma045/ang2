@@ -16,7 +16,7 @@ export class UseraddComponent implements OnInit {
   
     userForm: FormGroup;
     private submitted = false;
-  
+    private sectionTitle = 'Add User';
     constructor(private userService:UserService,  private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder){ 
 		/*this.userForm = this.formBuilder.group({
 		  'username': ['', Validators.required],
@@ -36,8 +36,8 @@ export class UseraddComponent implements OnInit {
         });
 		
 		
-		if(!userService.is_loggedin()){			
-			router.navigate(['./login']);
+		if(!this.userService.is_loggedin()){			
+			this.router.navigate(['./login']);
 		}		
     }
   

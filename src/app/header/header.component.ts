@@ -16,25 +16,24 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-	   this.route.params.subscribe(params => {
-		   alert("dfg");
-              if(!this.userService.is_loggedin()){	
+	    this.route.params.subscribe(params => {
+		    if(!this.userService.is_loggedin()){	
 			    this.userloggedin = false;
-			  }
-			  else {
+			}
+			else {
 					this.userloggedin = true;
-			  }
-              console.log('New route params');
-       });  			   
+			}
+            console.log('New route params');
+        });  			   
   }
   
   signout(){
-	 this.userService.logout().subscribe(result => {
-		  console.log(result);
-		  if(result.success=="1"){
-			 localStorage.removeItem('is_logged_in');
-			 this.router.navigate(['/login']);	  
-		  }
-	 });	  	
+	    this.userService.logout().subscribe(result => {
+		    console.log(result);
+		    if(result.success=="1"){
+			   localStorage.removeItem('is_logged_in');
+			   this.router.navigate(['/login']);	  
+		    }
+	    });	  	
   } 
 }

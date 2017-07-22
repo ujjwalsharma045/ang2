@@ -1,7 +1,9 @@
-<form [formGroup]="settingForm">
-     <div *ngFor="let setting of settings">		
-		  <label>{{setting.title}}</label>
-		  <input type="text" name="{{setting.title}}"/> 	
-		  
-	 </div>
+<form #signupForm="ngForm" (ngSubmit)="update()">
+    <div *ngFor="let setting of settings; let i=index">		
+		<label>{{setting.title}}</label>
+		<input type="text" name="settings[]" [(ngModel)]="settings[i].content" value="settings[i].content"/>
+    </div>
+	<div>
+	     <input type="submit" value="Save">
+	</div>
 </form>

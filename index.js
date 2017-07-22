@@ -72,8 +72,6 @@ passport.use('login', new LocalStrategy({
   //res.redirect('/');
 }*/
 
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
 
 var paginate = require('express-paginate');
 
@@ -116,7 +114,7 @@ app.get("/" , function(req, res){
 
 app.use(paginate.middleware(10, 50));
 
-var urlencodedParser = bodyParser.urlencoded({extended:false});
+//var urlencodedParser = bodyParser.urlencoded({extended:false});
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/mydatabase');
 
@@ -200,7 +198,7 @@ var mailer = require('nodemailer');
   
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, './public/uploads')
+		cb(null, './uploads')
 	},
 	filename: function (req, file, cb) {
 		var fileexploded = file.originalname.split(".");
@@ -222,6 +220,8 @@ var schedule = require("node-schedule");
 var slugify = require('slugify');
 var fs = require('fs');
 var async = require('async');	
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));
 
 require('./controllers/UserController')(app , func , mail, upload, storage, mailer, multer, validator, User , paginate , cors , dateFormat, dateDiff , dobByAge , json2csv , excelexport , pdf , passport , LocalStrategy, bCrypt, fs, async, PasswordGenerate, randtoken, handlebars, UserProfile);
 

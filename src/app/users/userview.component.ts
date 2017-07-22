@@ -15,6 +15,8 @@ export class UserviewComponent implements OnInit {
   
   private userid;
   
+  private sectionTitle = 'View User';
+  
   constructor(private userService:UserService, private route: ActivatedRoute, private router: Router) { 
       if(!userService.is_loggedin()){			
 	    router.navigate(['./login']);
@@ -25,7 +27,7 @@ export class UserviewComponent implements OnInit {
 	  this.route.params.subscribe(params => {		    
            this.userid = params['id']; 			
       });	  
-
+      this.sectionTitle = this.sectionTitle+' '+this.userid;
       this.userService.getUser(this.userid).subscribe(result => {
 		  console.log(result.records[0]);
 		  this.user  = result.records[0];		   

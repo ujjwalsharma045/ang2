@@ -1,4 +1,4 @@
-<h2>View Page</h2>
+<h2>{{sectionTitle}}</h2>
 
 <table>
   <tr>
@@ -11,7 +11,7 @@
   </tr>
   <tr>
     <th>Content</th>
-    <td>{{pageDetail.content}}</td>
+    <td [innerHTML]="pageDetail.content"></td>
   </tr>
   <tr>
     <th>Status</th>

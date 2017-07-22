@@ -11,6 +11,7 @@ import { PagerService } from '../services/pager.service';
 export class PagesComponent implements OnInit {
 
     private  pageslist = [];
+	private sectionTitle = 'Pages';
     constructor(private pageService:PageService, private route: ActivatedRoute, private router: Router, private pagerService: PagerService) { 
   
     } 

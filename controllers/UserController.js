@@ -177,12 +177,16 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 		res.send(JSON.stringify({authen:1 ,success:1}));						
 	});
 
-    app.post("/adduser",  function(req , res){			
+    app.post("/adduser", function(req , res){			console.log(req.files); 
 			var error = [];
 			var data = {};
 			if(req.method=="POST"){
 				 if(error.length<=0){                   
+				    console.log(req.body); 
+					console.log(req.file); 
 				    upload(req, res, function(err){
+						 console.log(req.file); 
+						 
 						 if(req.file){ 
 							   if(err){
 								  res.json({error_code:1,err_desc:err});

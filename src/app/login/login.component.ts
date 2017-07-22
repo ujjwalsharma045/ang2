@@ -22,6 +22,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+	    if(this.userservice.is_loggedin()){			
+			this.router.navigate(['./']);
+		}
   }
   
   login(){
@@ -33,6 +36,9 @@ export class LoginComponent implements OnInit {
 				  if(result.success=="1"){
 					 localStorage.setItem('is_logged_in' , '1');
 					 this.router.navigate(['./users']);	  
+				  }
+				  else {
+					  
 				  }
 		  });   
 	  }	 

@@ -10,7 +10,8 @@ import { PageService} from '../services/page.service';
 })
 export class PageviewComponent implements OnInit {
     private pageid;
-	private pageDetail = {}
+	private pageDetail = {};
+	private sectionTitle = 'View Page';
     constructor(private pageService:PageService, private route:ActivatedRoute, private router:Router) { 
   
     }
@@ -19,7 +20,7 @@ export class PageviewComponent implements OnInit {
 		this.route.params.subscribe(params => {
            this.pageid = params['id'];
         });
-		
+		this.sectionTitle = this.sectionTitle+' '+this.pageid;
 		this.pageService.view(this.pageid).subscribe(result => {
 			console.log(result);
 			this.pageDetail = result.records[0];			   
