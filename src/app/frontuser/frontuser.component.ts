@@ -18,8 +18,10 @@ export class FrontuserComponent implements OnInit {
 	private frontuserpasswordForm:FormGroup;
     private sectionTitle = 'Edit Profile';
 	private submitted = false;
+	private forgotsubmitted = false;
 	formData:FormData;
 	fileList:any;
+	private displaymode = "profile";
     constructor(private frontuser_service:FrontuserService, private route:ActivatedRoute, private router: Router,  private formBuilding: FormBuilder) {
         this.passwordValidator = this.passwordValidator.bind(this); 		
         this.frontuserForm = formBuilding.group({
@@ -83,7 +85,7 @@ export class FrontuserComponent implements OnInit {
 	}
 	
 	update(){
-		this.submitted = true;
+		this.forgotsubmitted = true;
 		console.log(this.frontuserpasswordForm.value);
 		if(this.frontuserpasswordForm.valid){
 			this.frontuser_service.updatePassword(this.frontuserpasswordForm.value).subscribe(result => {
@@ -110,5 +112,9 @@ export class FrontuserComponent implements OnInit {
 				  return passwordConfirmationInput.setErrors(null); 	
             }  
         }
+	}
+	
+	setdisplaymode(type){
+		this.displaymode = type;  
 	}
 }

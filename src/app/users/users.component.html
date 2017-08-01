@@ -9,123 +9,173 @@
 	  padding: 4px 4px 4px 4px;
 	  background-color:#FFFFFF;
 	}
-	div{
-	  float:left;
-	  width:200px;
-	}
+	
 	.disabled{
        display:none;	
 	}
 </style>
 
-<h2>{{sectionTitle}}</h2>
 
-<form>
-	<div>
-	  <p>
-		<label>Name</label>
-		<input type="text" name="name" [(ngModel)]="search.first_name"/>
-	  </p>
-	</div>
+   
 
-	<div>  
-	  <p>
-		<label>Email</label>
-		<input type="text" name="email" [(ngModel)]="search.email"/>
-	  </p>
-	</div>  
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div></div>
+		  <!-- general form elements -->
+            
+          <div class="box box-primary col-xs-12">
+            <div class="box-header" style="float:left"><div class="row" >
+			  <h3 class="box-title">{{sectionTitle}}</h3>
+			  </div>
+            </div>
+			<div style="float:right;margin-top:10px">
+				<a href="add.php" style="color: #fff;background-color: #367fa9;border-color: #122b40;padding:5px 5px 5px 5px">
+				  Add User
+				</a>
+		    </div>
+			<div>    
+                <div class="row">						
+					<form role="form" method="get">
+					    <div class="">
+							<div class="box-body col-sm-3" style="clear:both;float:left;padding-left:8px">
+								<div class="">					  
+							        <form>
+										<div>
+										  <p>
+											<label>Name</label>
+											<input type="text" name="name" [(ngModel)]="search.first_name"/>
+										  </p>
+										</div>
 
-	<div>  
-	  <p>
-		<label>Username</label>
-		<input type="text" name="username" [(ngModel)]="search.username"/>
-	  </p>
-	</div>  
+										<div>  
+										  <p>
+											<label>Email</label>
+											<input type="text" name="email" [(ngModel)]="search.email"/>
+										  </p>
+										</div>  
 
-	<div>  
-	  <p>
-		<label>Created</label>
-		<input type="text" name="created_at" [(ngModel)]="search.created_at"/>
-	  </p>
-	</div>
+										<div>  
+										  <p>
+											<label>Username</label>
+											<input type="text" name="username" [(ngModel)]="search.username"/>
+										  </p>
+										</div>  
 
-	<div> 
-	  <p>
-		<input type="button" name="Search" value="Search" (click)="searchUser()"/>
-	  </p>
-	</div>
-</form>
+										<div>  
+										  <p>
+											<label>Created</label>
+											<input type="text" name="created_at" [(ngModel)]="search.created_at"/>
+										  </p>
+										</div>
 
-<table style="width:100%" style="border:1px solid #CCCCCC;border-collapse:collapse" border="1">
-  <tr>
-    <th>
-	    <a href="javascript:void(0)" (click)="sortlist('_id')">
-		 ID		
-		</a>  
-		<span [ngClass]="{disabled:search.sortfield != '_id'}">
-		   <span *ngIf="!sortreverse">^</span>
-		   <span *ngIf="sortreverse">v</span> 
-	    </span>
-	</th>
-    <th>
-	  <a href="javascript:void(0)" (click)="sortlist('first_name')">
-		 Name
-	  </a>	
-	  <span [ngClass]="{disabled:search.sortfield != 'first_name'}">
-		 <span *ngIf="!sortreverse">^</span>
-		 <span *ngIf="sortreverse">v</span>
-	  </span>
-	</th>
-	<th>
-	   <a href="javascript:void(0)" (click)="sortlist('email')">
-	     Email
-	   </a>	 
-	   <span [ngClass]="{disabled:search.sortfield != 'email'}">
-		  <span *ngIf="!sortreverse">^</span>
-		  <span *ngIf="sortreverse">v</span>
-	   </span>
-	</th>
-	<th>
-	  <a href="javascript:void(0)" (click)="sortlist('created_at')">
-	     Created
-	  </a> 
-	  <span [ngClass]="{disabled:search.sortfield != 'created_at'}">
-		  <span *ngIf="!sortreverse">^</span>
-		  <span *ngIf="sortreverse">v</span>
-	  </span>
-	</th>
-	<th>Action</th>
-  </tr>
-  <tr *ngFor="let user of userdetail">
-       <td>{{user._id}}</td>
-       <td>{{user.first_name}} {{user.last_name}}</td>
-	   <td>{{user.email}}</td>
-	   <td>{{user.created_at}}</td>
-	   <td>
-	       <a [routerLink]="['./users/view' , user._id]">View</a>
-		   <a [routerLink]="['./users/edit' , user._id]">Edit</a>
-		   <a href="javascript:void(0)" (click)="deleteUserConfirm(user._id)">Delete</a> 
-	   </td>	   
-   </tr>    
-</table>
+										<div> 
+										  <p>
+											<input type="button" name="Search" value="Search" (click)="searchUser()"/>
+										  </p>
+										</div>
+                                    </form>
+								</div>                                               
+							</div>
+					       <!-- /.box-body -->
+                        </div>
+					    <div class="" style="float:left;padding-right:10px;margin-top:10px">
+						
+					    </div>
+					</form>
+				</div>	
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+			    <div class="row">
+                   <table style="width:100%" class="table table-bordered table-striped">
+				       <thead>
+						  <tr>
+							<th>
+								<a href="javascript:void(0)" (click)="sortlist('_id')">
+									ID		
+								</a>  
+								<span [ngClass]="{disabled:search.sortfield != '_id'}">
+								   <span *ngIf="!sortreverse">^</span>
+								   <span *ngIf="sortreverse">v</span> 
+								</span>
+							</th>
+							<th>
+							  <a href="javascript:void(0)" (click)="sortlist('first_name')">
+								 Name
+							  </a>	
+							  <span [ngClass]="{disabled:search.sortfield != 'first_name'}">
+								 <span *ngIf="!sortreverse">^</span>
+								 <span *ngIf="sortreverse">v</span>
+							  </span>
+							</th>
+							<th>
+							   <a href="javascript:void(0)" (click)="sortlist('email')">
+								 Email
+							   </a>	 
+							   <span [ngClass]="{disabled:search.sortfield != 'email'}">
+								  <span *ngIf="!sortreverse">^</span>
+								  <span *ngIf="sortreverse">v</span>
+							   </span>
+							</th>
+							<th>
+							  <a href="javascript:void(0)" (click)="sortlist('created_at')">
+								 Created
+							  </a> 
+							  <span [ngClass]="{disabled:search.sortfield != 'created_at'}">
+								  <span *ngIf="!sortreverse">^</span>
+								  <span *ngIf="sortreverse">v</span>
+							  </span>
+							</th>
+							<th>Action</th>
+						  </tr>
+					  </thead>
+					  <tbody>
+						<tr *ngFor="let user of userdetail">
+							<td>{{user._id}}</td>
+							<td>{{user.first_name}} {{user.last_name}}</td>
+							<td>{{user.email}}</td>
+							<td>{{user.created_at}}</td>
+							<td>
+							   <a [routerLink]="['./users/view' , user._id]">View</a>
+							   <a [routerLink]="['./users/edit' , user._id]">Edit</a>
+							   <a href="javascript:void(0)" (click)="deleteUserConfirm(user._id)">Delete</a> 
+							 </td>	   
+						</tr>    
+                      </tbody>
+					</table>
 
-<ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-	<li [ngClass]="{disabled:pager.currentPage === 1}">
-		<a href="javascript:void(0)" (click)="paging(1)">First</a>
-	</li>
-	<li [ngClass]="{disabled:pager.currentPage === 1}">
-		<a href="javascript:void(0)" (click)="paging(pager.currentPage - 1)">Previous</a>
-	</li>
-	<li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-		<a href="javascript:void(0)" (click)="paging(page)">{{page}}</a>
-	</li>
-	<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-		<a href="javascript:void(0)" (click)="paging(pager.currentPage + 1)">Next</a>
-	</li>
-	<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-		<a href="javascript:void(0)" (click)="paging(pager.totalPages)">Last</a>
-	</li>
-</ul>
+					<ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+						<li [ngClass]="{disabled:pager.currentPage === 1}">
+							<a href="javascript:void(0)" (click)="paging(1)">First</a>
+						</li>
+						<li [ngClass]="{disabled:pager.currentPage === 1}">
+							<a href="javascript:void(0)" (click)="paging(pager.currentPage - 1)">Previous</a>
+						</li>
+						<li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+							<a href="javascript:void(0)" (click)="paging(page)">{{page}}</a>
+						</li>
+						<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+							<a href="javascript:void(0)" (click)="paging(pager.currentPage + 1)">Next</a>
+						</li>
+						<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+							<a href="javascript:void(0)" (click)="paging(pager.totalPages)">Last</a>
+						</li>
+					</ul>
+			    </div>			  			 
+			</div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+
+
 <popup (confirmClick)="deleteUser()">
     Are you sure you want to delete clicked user ?
 </popup>

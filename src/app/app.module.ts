@@ -44,7 +44,7 @@ const routes: Routes = [
   { path:'pages', component: PagesComponent },
   { path:'pages/index', component: PagesComponent },
   { path:'frontuser/index', component: FrontuserComponent },
-  { path:'user/resetpassword', component: ResetpasswordComponent }
+  { path:'user/resetpassword/:token', component: ResetpasswordComponent }
 ];
 
 @NgModule({

@@ -73,6 +73,10 @@ export class UserService {
 	resetPassword(data){
 		let headers = new Headers({'Content-Type':'application/json'});
         let options = new RequestOptions({headers:headers});
-	    return this.http.get(this.userUrl+"user/resetpassword?password="+data.newpassword).map(res => res.json());
+	    return this.http.get(this.userUrl+"user/changepassword?password="+data.newpassword).map(res => res.json());
+	}
+	
+	getTokenDetail(token){
+	   return this.http.get(this.userUrl+"user/resetpassword/"+token.token).map(res => res.json());
 	}
 }
