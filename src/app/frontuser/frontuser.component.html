@@ -38,3 +38,33 @@
 		<input type="button" name="Submit" value="Submit" (click)="userAdd()"/> 
 	  </p>
 </form>	
+
+
+<form [formGroup]="frontuserpasswordForm" enctype="multipart/form-data" methood="post">	
+	  
+	  <div>
+	    <label>Old Password</label>
+	    <input type="text" [formControl]="frontuserpasswordForm.controls['oldpassword']" name="oldpassword"/> 
+	    <div *ngIf="frontuserpasswordForm.controls['oldpassword'].hasError('required') && submitted" class="alert alert-danger">Enter old password.</div>          
+	  </div>
+	  
+	  <div>
+	    <label>New Password</label>
+	    <input type="text" [formControl]="frontuserpasswordForm.controls['newpassword']" name="newpassword"/> 
+	    <div *ngIf="frontuserpasswordForm.controls['newpassword'].hasError('required') && submitted" class="alert alert-danger">Enter new password.</div>          
+	  </div>
+	
+	  <div>
+	    <label>Confirm Password</label>
+	    <input type="text" [formControl]="frontuserpasswordForm.controls['confirmpassword']" name="confirmpassword"/> 
+	    <div *ngIf="frontuserpasswordForm.controls['confirmpassword'].hasError('required') && submitted" class="alert alert-danger">Enter confirm password.</div> 
+        <div *ngIf="frontuserpasswordForm.controls['confirmpassword'].hasError('notEquivalent') && submitted" class="alert alert-danger">
+		    Passwords don't match
+		</div>
+
+	  </div>
+	
+	  <p>
+		<input type="button" name="Submit" value="Submit" (click)="update()"/> 
+	  </p>
+</form>	

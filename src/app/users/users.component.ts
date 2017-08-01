@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { Observable } from 'rxjs/Observable';
 import * as _ from 'underscore';
 import { PagerService } from '../services/pager.service';
+import {Popup} from 'ng2-opd-popup';
 
 @Component({
   selector: 'app-users',
@@ -15,7 +16,7 @@ import { PagerService } from '../services/pager.service';
 export class UsersComponent implements OnInit {
   	
   private userdetail;
-  
+  private deleteuserid;
   private search = {
 	 first_name:"",
      email:"",
@@ -37,7 +38,7 @@ export class UsersComponent implements OnInit {
   
   private sectionTitle = 'Users';
   
-  constructor(private userService:UserService, private route: ActivatedRoute, private router: Router, private pagerService: PagerService) {   
+  constructor(private userService:UserService, private route: ActivatedRoute, private router: Router, private pagerService: PagerService, private popup:Popup) {   
        if(!userService.is_loggedin()){			
 	     router.navigate(['./login']);
 	   }	 
@@ -74,28 +75,46 @@ export class UsersComponent implements OnInit {
 	  //this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   
-  deleteUser(id){
-	  this.userService.removeUser(id).subscribe(result => {
-		   if(result.success=="1"){
-			  location.reload();
-		   }		   
-	  });
+  deleteUser(){
+	    this.userService.removeUser(this.deleteuserid).subscribe(result => {
+		    if(result.success=="1"){
+			   location.reload();
+		    }		   
+	    });
   }
   
-  searchUser(){	        
-      this.currentPage = 1;
-	  this.search.page = this.currentPage;
-	  this.userList(this.search);
-  }
+  deleteUserConfirm(id){
+	    this.deleteuserid = id; 
+	    this.popup.options = {
+			header: "Your custom header",
+			color: "#5cb85c", // red, blue.... 
+			widthProsentage: 40, // The with of the popou measured by browser width 
+			animationDuration: 1, // in seconds, 0 = no animation 
+			showButtons: true, // You can hide this in case you want to use custom buttons 
+			confirmBtnContent: "Yes", // The text on your confirm button 
+			cancleBtnContent: "Cancel", // the text on your cancel button 
+			confirmBtnClass: "btn btn-default", // your class for styling the confirm button 
+			cancleBtnClass: "btn btn-default", // you class for styling the cancel button 
+			animation: "fadeInDown" // 'fadeInLeft', 'fadeInRight', 'fadeInUp', 'bounceIn','bounceInDown' 
+        };
+	   
+	    this.popup.show(this.popup.options);
+    }
   
-  paging(pageno){	  
-      this.currentPage = pageno;
-	  this.search.page = pageno;
-	  this.userList(this.search);
-  }
+    searchUser(){	        
+        this.currentPage = 1;
+	    this.search.page = this.currentPage;
+	    this.userList(this.search);
+    }
+  
+    paging(pageno){	  
+        this.currentPage = pageno;
+	    this.search.page = pageno;
+	    this.userList(this.search);
+    }
 
-  sortlist(field){
-	  if(this.search.sortfield==field){
+    sortlist(field){
+	    if(this.search.sortfield==field){
 		  if(this.sortreverse){
 		    this.sortreverse = false;
 			this.search.sorttype = 'desc';
@@ -104,18 +123,18 @@ export class UsersComponent implements OnInit {
             this.sortreverse = true;
             this.search.sorttype = 'asc';			
 		  }
-	  }
-	  else {
-	      this.search.sortfield = field;
-		  this.sortreverse = true;
-		  this.search.sorttype = 'asc';
-	  }
+	    }
+	    else {
+	       this.search.sortfield = field;
+		   this.sortreverse = true;
+		   this.search.sorttype = 'asc';
+	    }
 	  
-	  this.search.page = this.currentPage;
-	  this.userList(this.search);
-  } 
+	    this.search.page = this.currentPage;
+	    this.userList(this.search);
+    } 
   
-  ngOnInit() {
-	  this.userdetail = this.userList("");
-  }
+    ngOnInit() {
+	    this.userdetail = this.userList("");
+    }
 }

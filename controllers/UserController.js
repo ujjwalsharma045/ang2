@@ -607,10 +607,11 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 		res.send(JSON.stringify({authen:0 ,success:1}));						
 	});
 	
-	app.post('/user/editpassword', passport.isAuthenticated, function(req, res){		   
+	app.post('/user/editpassword',  function(req, res){		   
 		if(req.method=="POST"){  	
             console.log("user");
-            console.log(req.user._id);			
+            //req.user._id = '590319eb86de9e0e380bfab6';			
+			console.log(req.user._id);
 		    User.find({_id:req.user._id} , function(err, records){
 				if(err) throw err;
 				var errors = [];
@@ -766,7 +767,7 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 							text:'password reset'
 						};
 												
-						readHTMLFile(__dirname + '/../public/views/emails/passwordrecovery.html', function(err, html){
+						readHTMLFile(__dirname + '/../views/emails/passwordrecovery.html', function(err, html){
 								var template = handlebars.compile(html);
 								
 								var replacements = {

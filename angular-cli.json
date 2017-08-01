@@ -26,6 +26,10 @@
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
+      },
+	  "defaultJSExtensions": true,
+      "map": {
+        "ng2-bs3-modal": "node_modules/ng2-bs3-modal"
       }
     }
   ],

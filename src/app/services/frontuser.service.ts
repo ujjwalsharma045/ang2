@@ -46,4 +46,10 @@ export class FrontuserService {
 			xhr.send(formData);
 		});
     }
+	
+	public updatePassword(data){
+	    let headers = new Headers({'Content-Type':'application/json'});
+        let options = new RequestOptions({headers:headers});
+		return this.http.post(this.profileUrl+"user/editpassword" , data , options).map(res => res.json());
+	}
 }

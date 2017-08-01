@@ -5,7 +5,7 @@ import { FormBuilder, Validators,FormGroup,FormControl} from '@angular/forms';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import {URLSearchParams} from '@angular/http';
 //import { bootstrap } from "angular2/platform/browser";
-
+import { EqualTextValidator } from "angular2-text-equality-validator";
 @Component({
   selector: 'app-frontuser',
   templateUrl: './frontuser.component.html',
@@ -14,13 +14,14 @@ import {URLSearchParams} from '@angular/http';
 })
 
 export class FrontuserComponent implements OnInit {
-    frontuserForm:FormGroup;
-	
+    private frontuserForm:FormGroup;
+	private frontuserpasswordForm:FormGroup;
     private sectionTitle = 'Edit Profile';
 	private submitted = false;
 	formData:FormData;
 	fileList:any;
-    constructor(private frontuser_service:FrontuserService, private route:ActivatedRoute, private router: Router,  private formBuilding: FormBuilder) { 
+    constructor(private frontuser_service:FrontuserService, private route:ActivatedRoute, private router: Router,  private formBuilding: FormBuilder) {
+        this.passwordValidator = this.passwordValidator.bind(this); 		
         this.frontuserForm = formBuilding.group({
 			'email':[null, Validators.required],
 			'first_name':[null, Validators.required],
@@ -28,6 +29,12 @@ export class FrontuserComponent implements OnInit {
             'profile_pic':[null, Validators.required],
             'dateofbirth':[null, Validators.required] 			
 		});
+		
+		this.frontuserpasswordForm = formBuilding.group({
+			'oldpassword':["", Validators.required],
+			'newpassword':["", Validators.required],
+            'confirmpassword':["", Validators.required]
+        }, {validator: this.passwordValidator('newpassword', 'confirmpassword')});
     }
 
     ngOnInit() {
@@ -74,5 +81,34 @@ export class FrontuserComponent implements OnInit {
 				)*/
        // }
 	}
-
+	
+	update(){
+		this.submitted = true;
+		console.log(this.frontuserpasswordForm.value);
+		if(this.frontuserpasswordForm.valid){
+			this.frontuser_service.updatePassword(this.frontuserpasswordForm.value).subscribe(result => {
+				console.log(result);
+				if(result.success=="1"){
+					this.router.navigate(['./users']);	  
+				}
+			});
+		}
+	}
+	
+	passwordValidator(passwordKey: string, passwordConfirmationKey: string){
+		//console.log(this.frontuserpasswordForm);
+	    return (group: FormGroup) => {
+            let passwordInput = group.controls[passwordKey],
+                passwordConfirmationInput = group.controls[passwordConfirmationKey];
+            if(passwordConfirmationInput.value!="" && passwordInput.value!="" && passwordInput.value !== passwordConfirmationInput.value) {
+              return passwordConfirmationInput.setErrors({notEquivalent: true})
+            }
+            else {
+				if(passwordConfirmationInput.value=="")
+                  return passwordConfirmationInput.setErrors({required:true});
+			    else 
+				  return passwordConfirmationInput.setErrors(null); 	
+            }  
+        }
+	}
 }
