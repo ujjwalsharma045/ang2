@@ -21,6 +21,7 @@ export class FrontuserComponent implements OnInit {
 	private forgotsubmitted = false;
 	formData:FormData;
 	fileList:any;
+	private param:string[]=[]; 
 	private displaymode = "profile";
     constructor(private frontuser_service:FrontuserService, private route:ActivatedRoute, private router: Router,  private formBuilding: FormBuilder) {
         this.passwordValidator = this.passwordValidator.bind(this); 		
@@ -45,12 +46,17 @@ export class FrontuserComponent implements OnInit {
 	
 	userAdd(){
 		this.submitted = true;
-	
-		this.frontuser_service.makeFileRequest([], this.fileList).subscribe(result => {
-				//console.log(result);
-				if(result.success=="1"){
-					this.router.navigate(['./users']);	  
-				}
+		
+	    this.param['first_name'] = this.frontuserForm.value.first_name;
+		this.param['last_name'] = this.frontuserForm.value.last_name;
+		this.param['email'] = this.frontuserForm.value.email;
+		this.param['dob'] = this.frontuserForm.value.dateofbirth;
+		
+		this.frontuser_service.makeFileRequest(this.param, this.fileList).subscribe(result => {
+			//console.log(result);
+			if(result.success=="1"){
+				this.router.navigate(['./users']);	  
+			}
 		});
 		
 		//console.log(this.frontuserForm.value);
@@ -81,7 +87,7 @@ export class FrontuserComponent implements OnInit {
 					data => console.log('success'),
 					error => console.log(error)
 				)*/
-       // }
+       //}
 	}
 	
 	update(){
@@ -102,8 +108,8 @@ export class FrontuserComponent implements OnInit {
 	    return (group: FormGroup) => {
             let passwordInput = group.controls[passwordKey],
                 passwordConfirmationInput = group.controls[passwordConfirmationKey];
-            if(passwordConfirmationInput.value!="" && passwordInput.value!="" && passwordInput.value !== passwordConfirmationInput.value) {
-              return passwordConfirmationInput.setErrors({notEquivalent: true})
+            if(passwordConfirmationInput.value!="" && passwordInput.value!="" && passwordInput.value !== passwordConfirmationInput.value){
+                return passwordConfirmationInput.setErrors({notEquivalent: true})
             }
             else {
 				if(passwordConfirmationInput.value=="")

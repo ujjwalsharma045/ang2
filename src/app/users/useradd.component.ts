@@ -17,6 +17,7 @@ export class UseraddComponent implements OnInit {
     userForm: FormGroup;
     private submitted = false;
     private sectionTitle = 'Add User';
+	private fileList:any;
     constructor(private userService:UserService,  private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder){ 
 		/*this.userForm = this.formBuilder.group({
 		  'username': ['', Validators.required],
@@ -27,12 +28,16 @@ export class UseraddComponent implements OnInit {
 		});*/
 		
 		this.userForm = formBuilder.group({      
-			'username' : [null, Validators.required],      
-			'email': [null, Validators.required],
-			'password': [null, Validators.required],
-			'first_name' : [null, Validators.required],
-			'last_name' : [null, Validators.required],
-			'dateofbirth' : [null, Validators.required]
+			'username':[null, Validators.required],      
+			'email':[null, Validators.required],
+			'password':[null, Validators.required],
+			'first_name':[null, Validators.required],
+			'last_name':[null, Validators.required],
+			'address' : [null, Validators.required],
+		    'city' : [null, Validators.required],
+		    'state' : [null, Validators.required],
+			'profile_pic':[''],
+			'dateofbirth':[null, Validators.required]
         });
 		
 		
@@ -44,14 +49,24 @@ export class UseraddComponent implements OnInit {
     userAdd(){
 	    this.submitted =true;	      
 	    if(this.userForm.valid){ 		             			
-			this.userService.addUser(this.userForm.value).subscribe(result => {
+			/*this.userService.addUser(this.userForm.value).subscribe(result => {
 				//console.log(result);
 				if(result.success=="1"){
 					this.router.navigate(['./users']);	  
 				}
-			});   
+			});*/ 
+            this.userService.makeFileRequest(this.userForm.value, this.fileList , "add" ,"").subscribe(result => {
+				//console.log(result);
+				if(result.success=="1"){
+					this.router.navigate(['./users']);	  
+				}
+			}); 			
 	    }		
     }
-  
+	
+	fileChange(fileInput:any){
+		this.fileList = fileInput.target.files;
+    }
+      
     ngOnInit(){}  
 }

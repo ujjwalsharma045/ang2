@@ -27,16 +27,17 @@ import { UnfooterComponent } from './unfooter/unfooter.component';
 
 import {PopupModule} from 'ng2-opd-popup';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { RegisterComponent } from './users/register.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 
 const routes: Routes = [
-  { path:'', component: UsersComponent },  
+  { path:'', redirectTo:'users', pathMatch: 'full' },  
   { path:'users', component: UsersComponent },
   { path:'users/view/:id', component: UserviewComponent },
   { path:'users/edit/:id', component: UsereditComponent },
   { path:'users/add', component: UseraddComponent },
-  { path:'login', component: LoginComponent , 
-  },
+  { path:'login', component: LoginComponent },
   { path:'setting', component: SettingComponent },
   { path:'page/add', component: PageaddComponent },
   { path:'page/edit/:id', component: PageeditComponent },
@@ -44,7 +45,9 @@ const routes: Routes = [
   { path:'pages', component: PagesComponent },
   { path:'pages/index', component: PagesComponent },
   { path:'frontuser/index', component: FrontuserComponent },
-  { path:'user/resetpassword/:token', component: ResetpasswordComponent }
+  { path:'user/resetpassword/:token', component: ResetpasswordComponent },
+  { path:'user/register', component: RegisterComponent },
+  { path:'**', component: NotfoundComponent }
 ];
 
 @NgModule({
@@ -69,7 +72,8 @@ const routes: Routes = [
 	UnheaderComponent,
 	UnfooterComponent,
 	ResetpasswordComponent,
-    	
+	RegisterComponent,
+	NotfoundComponent   	
   ],
   imports: [
     BrowserModule,
@@ -80,8 +84,8 @@ const routes: Routes = [
 	RouterModule.forChild(routes),
 	CKEditorModule,
 	Ng2DatetimePickerModule,
-	PopupModule.forRoot(),
-	], 
+	PopupModule.forRoot()
+  ], 
   providers: [],
   bootstrap: [AppComponent]
 })

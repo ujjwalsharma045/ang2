@@ -1,0 +1,44 @@
+<h2>{{sectionTitle}}</h2>
+<form [formGroup]="registerForm">	
+	  <div>
+	    <label>Username</label>
+	    <input type="text" [formControl]="registerForm.controls['username']" name="username"/> 
+	    <div *ngIf="registerForm.controls['username'].hasError('required') && submitted" class="alert alert-danger">Enter user name.</div>          
+	  </div> 
+	
+	  <div>
+	    <label>Password</label>
+	    <input type="password" [formControl]="registerForm.controls['password']" name="password"/> 
+	    <div *ngIf="registerForm.controls['password'].hasError('required') && submitted" class="alert alert-danger">Enter password.</div>          
+	  </div>
+	
+	  <div>
+	    <label>Email</label>
+	    <input type="text" [formControl]="registerForm.controls['email']" name="email"/> 
+	    <div *ngIf="registerForm.controls['email'].hasError('required') && submitted" class="alert alert-danger">Enter email.</div>          
+	  </div>
+	  
+	  <div>
+	    <label>First Name</label>
+	    <input type="text" [formControl]="registerForm.controls['first_name']" name="firstname"/> 
+	    <div *ngIf="registerForm.controls['first_name'].hasError('required') && submitted" class="alert alert-danger">Enter first name.</div>          
+	  </div>
+	
+	  <div>
+	    <label>Last Name</label>
+	    <input type="text" [formControl]="registerForm.controls['last_name']" name="lastname"/> 
+	    <div *ngIf="registerForm.controls['last_name'].hasError('required') && submitted" class="alert alert-danger">Enter last name.</div>          
+	  </div>
+	  
+	  <div>
+	    <label>Dob</label>
+	    <input type="text" [formControl]="registerForm.controls['dateofbirth']" name="dateofbirth" ng2-datetime-picker  date-only="true"/> 
+	    <div *ngIf="registerForm.controls['dateofbirth'].hasError('required') && submitted" class="alert alert-danger">
+		    Enter date of birth.
+		</div>          
+	  </div>
+
+	  <p>
+		<input type="button" name="Submit" value="Submit" (click)="register()"/> 
+	  </p>
+</form>	

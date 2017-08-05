@@ -25,12 +25,17 @@ export class FrontuserService {
 			let formData: FormData = new FormData(),
 			xhr: XMLHttpRequest = new XMLHttpRequest();
 			formData.append("uploads", file[0], file[0].name);
+			formData.append("first_name", params['first_name']);
+			formData.append("last_name", params['last_name']);
+			formData.append("email", params['email']);
+			formData.append("dateofbirth", params['dob']);
 			xhr.onreadystatechange = () => {
-				if (xhr.readyState === 4) {
-					if (xhr.status === 200) {
+				if(xhr.readyState === 4){
+					if(xhr.status === 200){
 						observer.next(JSON.parse(xhr.response));
 						observer.complete();
-					} else {
+					} 
+					else {
 						observer.error(xhr.response);
 					}
 				}
@@ -38,11 +43,10 @@ export class FrontuserService {
 
 			/*hr.upload.onprogress = (event) => {
 				this.progress = Math.round(event.loaded / event.total * 100);
-
 				this.progressObserver.next(this.progress);
 			};*/
             console.log(formData);
-			xhr.open('POST', this.profileUrl+'adduser', true);
+			xhr.open('POST', this.profileUrl+'user/adduser', true);
 			xhr.send(formData);
 		});
     }

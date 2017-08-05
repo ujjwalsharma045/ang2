@@ -1,37 +1,59 @@
 <h2>{{sectionTitle}}</h2>
 <form [formGroup]="userForm">	
-	 <div>		
-		  <label>Username</label>
-		  <input type="text" name="username" [formControl]="userForm.controls['username']"/> 	
-		  <div *ngIf="userForm.controls['username'].hasError('required') && submitted" class="alert alert-danger">   Enter user name.
-		  </div>          
-	 </div>
-	 
-	 <div>		
-		  <label>Email</label>
-		  <input type="text" name="email" [formControl]="userForm.controls['email']"/> 		
-		  <div *ngIf="userForm.controls['email'].hasError('required') && submitted" class="alert alert-danger">
-		     Enter email
-		  </div>
-	 </div>
-	 
-	 <div>
-	      <label>First Name</label>
-	      <input type="text" name="first_name" [formControl]="userForm.controls['first_name']"/>
-          <div *ngIf="userForm.controls['first_name'].hasError('required') && submitted" class="alert alert-danger">
+	<div>
+	    <label>First Name</label>
+	    <input type="text" name="first_name" [formControl]="userForm.controls['first_name']"/>
+        <div *ngIf="userForm.controls['first_name'].hasError('required') && submitted" class="alert alert-danger">
 		     Enter first name.
-		  </div>
-	 </div>
+		</div>
+	</div>
 	 
-	 <div>
-	      <label>Last Name</label>
-	      <input type="text" name="last_name" [formControl]="userForm.controls['last_name']"/> 
-		  <div *ngIf="userForm.controls['last_name'].hasError('required') && submitted" class="alert alert-danger">
+	<div>
+	    <label>Last Name</label>
+	    <input type="text" name="last_name" [formControl]="userForm.controls['last_name']"/> 
+		<div *ngIf="userForm.controls['last_name'].hasError('required') && submitted" class="alert alert-danger">
 		     Enter last name.
-		  </div>
-	 </div>
+		</div>
+	</div>
+	 
+	<div>
+	    <label>Address</label>
+	    <textarea name="address" [formControl]="userForm.controls['address']"></textarea>
+		<div *ngIf="userForm.controls['address'].hasError('required') && submitted" class="alert alert-danger">
+		     Enter Address.
+		</div>
+    </div>
+	
+	<div>
+	    <label>City</label>
+	    <input type="text" name="city" [formControl]="userForm.controls['city']"/> 
+		<div *ngIf="userForm.controls['city'].hasError('required') && submitted" class="alert alert-danger">
+		     Enter City.
+		</div>
+    </div>
+	
+	<div>
+	    <label>State</label>
+	    <input type="text" name="state" [formControl]="userForm.controls['state']"/> 
+		<div *ngIf="userForm.controls['state'].hasError('required') && submitted" class="alert alert-danger">
+		     Enter State.
+		</div>
+    </div>
+	  
+	<div>
+		<label>File</label>
+		<input type="file" [formControl]="userForm.controls['profile_pic']" name="profile_pic"   (change)="fileChange($event)"/> 
+	</div>
+	
+	<div>
+	    <label>Dob</label>
+	    <input type="text" [formControl]="userForm.controls['dateofbirth']" name="dateofbirth" ng2-datetime-picker  date-only="true"/> 
+	    <div *ngIf="userForm.controls['dateofbirth'].hasError('required') && submitted" class="alert alert-danger">
+		    Enter date of birth.
+		</div>          
+	</div>
 
-	 <div>	   
-	      <input type="button" name="Submit" value="Submit" (click)="updateUser()"/> 
-	 </div>
+	<div>	   
+	    <input type="button" name="Submit" value="Submit" (click)="updateUser()"/> 
+	</div>
 </form> 

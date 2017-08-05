@@ -138,8 +138,8 @@
 							<td>{{user.email}}</td>
 							<td>{{user.created_at}}</td>
 							<td>
-							   <a [routerLink]="['./users/view' , user._id]">View</a>
-							   <a [routerLink]="['./users/edit' , user._id]">Edit</a>
+							   <a [routerLink]="['./view' , user._id]">View</a>
+							   <a [routerLink]="['./edit' , user._id]">Edit</a>
 							   <a href="javascript:void(0)" (click)="deleteUserConfirm(user._id)">Delete</a> 
 							 </td>	   
 						</tr>    

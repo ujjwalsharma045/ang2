@@ -134,36 +134,39 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 		}); 		
 	});
 
-    app.post("/edit/:id", function(req, res){			    	
+    app.post("/edit/:id", multer({dest: "./uploads/"}).array("uploads", 12), function(req, res){			    	
 			var userid = req.params.id; 
 			var error = [];	
 			var data = {};
 			var recor = [];				
 				
 			if(req.method=="POST"){
-				if(error.length <=0){											                          
-					   var currentdate = new Date();
-					   var formatteddate = dateFormat(currentdate ,'yyyy-mm-dd HH:MM:ss');
-			  
-					   data = {
-							first_name: req.body.first_name,
-							last_name:req.body.last_name,
-							address:req.body.address,
-							city:req.body.city,
-							state:req.body.state,
-							zipcode:req.body.zipcode,
-							dateofbirth:req.body.dateofbirth,	
-							modified_at:formatteddate
-					   }; 
-			  
-					   console.log(data);
-					   User.findOneAndUpdate({_id: userid}, data, function(err, records) {
-						  if (err) throw err;				 
-									 
-						  res.setHeader('Content-Type', 'application/json');
-						  res.send(JSON.stringify({authen:1 ,success:1}));
-					  });						  									     		 		 	
-			    }
+				if(error.length <=0){		 
+					console.log(req.files);
+					console.log("xf");									                          
+					var currentdate = new Date();
+					var formatteddate = dateFormat(currentdate ,'yyyy-mm-dd HH:MM:ss');
+		  
+					data = {
+						first_name: req.body.first_name,
+						last_name:req.body.last_name,
+						address:req.body.address,
+						city:req.body.city,
+						state:req.body.state,
+						profile_pic:req.files[0].filename,
+						zipcode:req.body.zipcode,
+						dateofbirth:req.body.dateofbirth,	
+						modified_at:formatteddate
+					}; 
+		            
+					console.log(data);
+					User.findOneAndUpdate({_id: userid}, data, function(err, records) {
+					  if (err) throw err;				 
+								 
+					  res.setHeader('Content-Type', 'application/json');
+					  res.send(JSON.stringify({authen:1 ,success:1}));
+					});
+				}
                 else {
 				   res.setHeader('Content-Type', 'application/json');
 				   res.send(JSON.stringify({authen:1 ,success:0}));
@@ -177,38 +180,18 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 		res.send(JSON.stringify({authen:1 ,success:1}));						
 	});
 
-    app.post("/adduser", function(req , res){			console.log(req.files); 
+    app.post("/adduser", multer({dest: "./uploads/"}).array("uploads", 12), function(req , res){			console.log(req.files); 
 			var error = [];
 			var data = {};
 			if(req.method=="POST"){
 				 if(error.length<=0){                   
-				    console.log(req.body); 
-					console.log(req.file); 
-				    upload(req, res, function(err){
-						 console.log(req.file); 
+				    //console.log(req.body); 
+					//console.log(req.file); 
+				   
+						 //console.log(req.file); 
 						 
-						 if(req.file){ 
-							   if(err){
-								  res.json({error_code:1,err_desc:err});
-								  return;
-							   }
-						
-                               //res.json({error_code:0,err_desc:null});
-                   				   
-                               var currentdate = new Date();
-                               var formatteddate = dateFormat(currentdate ,'yyyy-mm-dd HH:MM:ss');				   
-					           data = {
-									 first_name:req.body.first_name,
-									 last_name:req.body.last_name,
-									 email:req.body.email,
-									 username:req.body.username,
-									 password:bCrypt.hashSync(req.body.password),
-									 profile_pic:req.file.filename,
-									 dateofbirth:req.body.dateofbirth,
-									 created_at :formatteddate 						
-					          };
-						 }
-						 else {
+						 console.log(req.files); 
+						 
                              var currentdate = new Date();
                              var formatteddate = dateFormat(currentdate ,'yyyy-mm-dd HH:MM:ss');				   
 					         data = {
@@ -217,11 +200,11 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 								 email:req.body.email,
 								 username:req.body.username,
 								 password:bCrypt.hashSync(req.body.password),
-								 profile_pic:'',
+								 profile_pic:req.files[0].filename,
 								 dateofbirth:req.body.dateofbirth,
 								 created_at :formatteddate 						
 					        };
-                        }
+                         
 						
 					    console.log(data);			   
 						var detail = new User(data);
@@ -262,8 +245,76 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 							  res.setHeader('Content-Type', 'application/json');
 							  res.send(JSON.stringify({authen:1 , success:1})); 				   
 						});			   			    
-				    });
+
 				 } 
+			}
+			else {
+				res.setHeader('Content-Type', 'application/json');
+			    res.send(JSON.stringify({authen:1 , success:0}));			
+			}				
+	});
+		
+	app.post("/user/adduser", multer({dest: "./uploads/"}).array("uploads", 12) , function(req , res){			
+	        console.log(req.files); 
+			var error = [];
+			var data = {};
+			//console.log(req.method);
+			if(req.method=="POST"){
+				if(error.length<=0){                   
+				     //console.log(req.body); 
+					//console.log(req.file); 
+				    
+					var currentdate = new Date();
+					var formatteddate = dateFormat(currentdate ,'yyyy-mm-dd HH:MM:ss');	
+					data = {
+						first_name:req.body.first_name,
+						last_name:req.body.last_name,
+						email:req.body.email,
+						profile_pic:req.files.filename,
+						dateofbirth:req.body.dateofbirth,
+						created_at :formatteddate 						
+					};
+                        
+					console.log(data);			   						
+					var detail = new User(data);
+					detail.save(function(err){
+						if(err) throw(err);
+						console.log('User saved successfully!');
+					  
+						var profile_data = {
+							description:'ss',
+							user_id:detail._id
+						};
+						  
+						var profile_detail = new UserProfile(profile_data);
+					  
+						profile_detail.save(function(err){
+							if(err) console.log(err);
+							detail.userprofiles.push(profile_detail);
+							detail.save(function(err){});
+						});
+					   
+						mailoptions = {
+							to:data.email,
+							subject: "User Registration",
+							text:"User Registered successfully"
+						};
+				   
+						var mailObj = mail.configMail(mailer);
+					  
+						mailObj.sendMail(mailoptions, function(error , response){
+							if(error){
+							  console.log(error);
+							}
+							else {
+							  console.log(response.message); 
+							}
+						});
+					  
+						res.setHeader('Content-Type', 'application/json');
+						res.send(JSON.stringify({authen:1 , success:1}));
+					});			   			    
+				} 
 			}
 			else {
 				res.setHeader('Content-Type', 'application/json');
@@ -842,4 +893,73 @@ module.exports = function(app , func , mail, upload, storage, mailer, multer, va
 			 }				 
 		 });       		
 	});	
+
+    app.post("/user/register", function(req , res){			
+	    console.log(req.files); 
+	    var error = [];
+		var data = {};
+		if(req.method=="POST"){
+			if(error.length<=0){                   
+				console.log(req.body); 
+				console.log(req.file); 				
+				console.log(req.file); 
+				var currentdate = new Date();
+				var formatteddate = dateFormat(currentdate ,'yyyy-mm-dd HH:MM:ss');				   
+				data = {
+						 first_name:req.body.first_name,
+						 last_name:req.body.last_name,
+						 email:req.body.email,
+						 username:req.body.username,
+						 password:bCrypt.hashSync(req.body.password),
+						 profile_pic:'',
+						 dateofbirth:req.body.dateofbirth,
+						 created_at :formatteddate 						
+				};
+										
+				console.log(data);			   
+				var detail = new User(data);
+				detail.save(function(err){
+					  if(err) throw err;
+					  console.log('User saved successfully!');
+					  
+					  var profile_data = {
+						  description:'ss',
+						  user_id:detail._id
+					  };
+					  
+					  var profile_detail = new UserProfile(profile_data);
+					  
+					  profile_detail.save(function(err){
+						  if(err) console.log(err);
+						  detail.userprofiles.push(profile_detail);
+						  detail.save(function(err){});
+					  });
+				   
+					  mailoptions = {
+						  to:data.email,
+						  subject: "User Registration",
+						  text:"User Registered successfully"
+					  };
+				   
+					  var mailObj = mail.configMail(mailer);
+					  
+					  mailObj.sendMail(mailoptions, function(error , response){
+						  if(error){
+							  console.log(error);
+						  }
+						  else {
+							  console.log(response.message); 
+						  }
+					  });
+					  
+					  res.setHeader('Content-Type', 'application/json');
+					  res.send(JSON.stringify({authen:1 , success:1})); 				   
+				});			   			    				
+			} 
+		}
+        else {
+			res.setHeader('Content-Type', 'application/json');
+			res.send(JSON.stringify({authen:1 , success:0}));			
+		}				
+	});
 }

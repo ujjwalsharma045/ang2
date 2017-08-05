@@ -19,6 +19,11 @@
 	  </div>
 	  
 	  <div>
+	    <label>File</label>
+	    <input type="file" [formControl]="userForm.controls['profile_pic']" name="profile_pic"   (change)="fileChange($event)"/> 
+	  </div>
+	  
+	  <div>
 	    <label>First Name</label>
 	    <input type="text" [formControl]="userForm.controls['first_name']" name="firstname"/> 
 	    <div *ngIf="userForm.controls['first_name'].hasError('required') && submitted" class="alert alert-danger">Enter first name.</div>          
@@ -37,6 +42,30 @@
 		    Enter date of birth.
 		</div>          
 	  </div>
+	  
+	  <div>
+	    <label>Address</label>
+	    <textarea name="address" [formControl]="userForm.controls['address']"></textarea>
+		<div *ngIf="userForm.controls['address'].hasError('required') && submitted" class="alert alert-danger">
+		     Enter Address.
+		</div>
+    </div>
+	
+	<div>
+	    <label>City</label>
+	    <input type="text" name="city" [formControl]="userForm.controls['city']"/> 
+		<div *ngIf="userForm.controls['city'].hasError('required') && submitted" class="alert alert-danger">
+		     Enter City.
+		</div>
+    </div>
+	
+	<div>
+	    <label>State</label>
+	    <input type="text" name="state" [formControl]="userForm.controls['state']"/> 
+		<div *ngIf="userForm.controls['state'].hasError('required') && submitted" class="alert alert-danger">
+		     Enter State.
+		</div>
+    </div>
 
 	  <p>
 		<input type="button" name="Submit" value="Submit" (click)="userAdd()"/> 
